@@ -1,6 +1,10 @@
 # Titanic-Survival-Prediction
 A machine learning model to predict Titanic survival based on various passenger attributes
 
+# Link to the data set
+
+https://github.com/kalyani12345121/Titanic-Survival-Prediction/blob/main/tested.csv
+
 # Structure
 Titanic-Survival-Prediction/
 ├── data/
@@ -20,6 +24,7 @@ Titanic-Survival-Prediction/
 # Task Objectives:
 To Build a machine learning model to predict survival on the Titanic using the dataset of passengers.
 I Implement steps like data cleaning, feature engineering, model building, and evaluation.
+
 # steps to run the project
 https://github.com/kalyani12345121/Titanic-Survival-Prediction/edit/main/README.md
 

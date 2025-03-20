@@ -8,24 +8,38 @@ https://github.com/kalyani12345121/Titanic-Survival-Prediction/blob/main/tested.
 # Structure
 Titanic-Survival-Prediction/
 ├── data/
+
 │   ├── train.csv
+
 │   ├── test.csv
+
 ├── notebooks/
+
 │   ├── data_preprocessing.ipynb
+
 │   ├── model_training.ipynb
+
 ├── src/
+
 │   ├── preprocessing.py
+
 │   ├── model.py
+
 │   ├── evaluate.py
+
 ├── requirements.txt
+
 ├── README.md
+
 ├── .gitignore
+
 
 # Task Objectives:
 To Build a machine learning model to predict survival on the Titanic using the dataset of passengers.
 I Implement steps like data cleaning, feature engineering, model building, and evaluation.
 
 # steps to run the project
+
 https://github.com/kalyani12345121/Titanic-Survival-Prediction/edit/main/README.md
 
 # Load the dataset and start preprocessing:
@@ -113,6 +127,7 @@ def evaluate_model(model, X_test, y_test):
     plt.ylabel('Actual')
     plt.xlabel('Predicted')
     plt.show()
+    
 # Project Dependencies
 To Add a requirements.txt file to list all the dependencies.
 Example of requirements.txt:

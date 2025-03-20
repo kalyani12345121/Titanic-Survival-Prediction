@@ -121,4 +121,5 @@ seaborn==0.11.2
 
 # Link to see the images
 
+https://github.com/kalyani12345121/Titanic-Survival-Prediction/blob/main/Screenshot%20(57).png
 

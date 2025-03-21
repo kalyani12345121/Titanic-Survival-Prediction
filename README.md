@@ -219,3 +219,15 @@ https://github.com/kalyani12345121/Titanic-Survival-Prediction/blob/main/Screens
 https://github.com/kalyani12345121/Titanic-Survival-Prediction/blob/main/Screenshot%20(58).png
 
 https://github.com/kalyani12345121/Titanic-Survival-Prediction/blob/main/Screenshot%20(59).png
+
+
+git init
+
+git add.D:\\ "D:\\tested.csv"
+
+git commit-m "Initial commit of Titanic Machine Learning Project
+
+
+git remote add origin https://github.com/kalyani12345121/Titanic-Survival-Prediction.git
+
+

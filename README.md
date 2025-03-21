@@ -105,37 +105,66 @@ Code Example (in src/model.py):
 
 python
 
-Copy
-
-from sklearn.ensemble import RandomForestClassifier
-
+# Import necessary libraries
+import pandas as pd
+import numpy as np
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler, LabelEncoder
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-from sklearn.metrics import accuracy_score, classification_report
+# Load the Titanic dataset (replace with your file path if needed)
+df = pd.read_csv('D:\\tested.csv')
 
-from preprocessing import preprocess_data
+# 1. Data Preprocessing
 
-def train_model(data_path):
+# Drop unnecessary columns
+df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin'], axis=1)
 
-    df = preprocess_data(data_path)
-    
-    X = df.drop(columns=['Survived'])
-    
-    y = df['Survived']
-    
-      X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-      
-       model = RandomForestClassifier(n_estimators=100, random_state=42)
-       
-    model.fit(X_train, y_train)
-    
-        y_pred = model.predict(X_test)
-        
-           print("Accuracy:", accuracy_score(y_test, y_pred))
-           
-    print("Classification Report:\n", classification_report(y_test, y_pred))
-    
-    return model
+# Handle missing values (mean for age, mode for Embarked, drop rows with missing Survived)
+df['Age'].fillna(df['Age'].mean(), inplace=True)
+df['Embarked'].fillna(df['Embarked'].mode()[0], inplace=True)
+df.dropna(subset=['Survived'], inplace=True)
+
+# Encode categorical variables (Sex, Embarked)
+label_encoder = LabelEncoder()
+df['Sex'] = label_encoder.fit_transform(df['Sex'])  # Male=1, Female=0
+df['Embarked'] = label_encoder.fit_transform(df['Embarked'])  # C=0, Q=1, S=2
+
+# 2. Feature Selection (target is 'Survived')
+X = df.drop('Survived', axis=1)
+y = df['Survived']
+
+# 3. Train-Test Split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# 4. Feature Scaling
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+# 5. Model Training
+model = RandomForestClassifier(n_estimators=100, random_state=42)
+model.fit(X_train_scaled, y_train)
+
+# 6. Model Prediction
+y_pred = model.predict(X_test_scaled)
+
+# 7. Evaluation
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy:.2f}")
+print(confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+
+# 8. Visualization of Confusion Matrix
+cm = confusion_matrix(y_test, y_pred)
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['Died', 'Survived'], yticklabels=['Died', 'Survived'])
+plt.xlabel('Predicted')
+plt.ylabel('True')
+plt.title('Confusion Matrix')
+plt.show()
 
 # Model Evaluation
 Objective: Evaluate the trained model and provide insights on performance.

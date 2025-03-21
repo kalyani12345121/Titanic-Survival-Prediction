@@ -103,112 +103,104 @@ Train various machine learning models (e.g., Logistic Regression, Random Forest,
 Evaluate models using performance metrics like accuracy, precision, recall, F1-score.
 Code Example (in src/model.py):
 
-python
-
 # Import necessary libraries
 import pandas as pd
+
 import numpy as np
+
 from sklearn.model_selection import train_test_split
+
 from sklearn.preprocessing import StandardScaler, LabelEncoder
+
 from sklearn.ensemble import RandomForestClassifier
+
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+
 import matplotlib.pyplot as plt
+
 import seaborn as sns
 
 # Load the Titanic dataset (replace with your file path if needed)
+
 df = pd.read_csv('D:\\tested.csv')
 
 # 1. Data Preprocessing
 
 # Drop unnecessary columns
+
 df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin'], axis=1)
 
 # Handle missing values (mean for age, mode for Embarked, drop rows with missing Survived)
+
 df['Age'].fillna(df['Age'].mean(), inplace=True)
+
 df['Embarked'].fillna(df['Embarked'].mode()[0], inplace=True)
+
 df.dropna(subset=['Survived'], inplace=True)
 
 # Encode categorical variables (Sex, Embarked)
+
 label_encoder = LabelEncoder()
+
 df['Sex'] = label_encoder.fit_transform(df['Sex'])  # Male=1, Female=0
+
 df['Embarked'] = label_encoder.fit_transform(df['Embarked'])  # C=0, Q=1, S=2
 
 # 2. Feature Selection (target is 'Survived')
+
 X = df.drop('Survived', axis=1)
+
 y = df['Survived']
 
 # 3. Train-Test Split
+
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # 4. Feature Scaling
+
 scaler = StandardScaler()
+
 X_train_scaled = scaler.fit_transform(X_train)
+
 X_test_scaled = scaler.transform(X_test)
 
 # 5. Model Training
+
 model = RandomForestClassifier(n_estimators=100, random_state=42)
+
 model.fit(X_train_scaled, y_train)
 
 # 6. Model Prediction
+
 y_pred = model.predict(X_test_scaled)
 
 # 7. Evaluation
+
 accuracy = accuracy_score(y_test, y_pred)
+
 print(f"Accuracy: {accuracy:.2f}")
+
 print(confusion_matrix(y_test, y_pred))
+
 print(classification_report(y_test, y_pred))
 
 # 8. Visualization of Confusion Matrix
+
 cm = confusion_matrix(y_test, y_pred)
+
 sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['Died', 'Survived'], yticklabels=['Died', 'Survived'])
+
 plt.xlabel('Predicted')
+
 plt.ylabel('True')
+
 plt.title('Confusion Matrix')
-plt.show()
 
-# Model Evaluation
-Objective: Evaluate the trained model and provide insights on performance.
-# Steps:
-Evaluate performance on test data using accuracy, precision, recall, F1-score.
-Analyze the confusion matrix.
-Code Example (in src/evaluate.py):
-python
-Copy
-
-from sklearn.metrics import confusion_matrix, accuracy_score
-
-import seaborn as sns
-
-import matplotlib.pyplot as plt
-
-
-def evaluate_model(model, X_test, y_test):
-
-    y_pred = model.predict(X_test)
-    
-    accuracy = accuracy_score(y_test, y_pred)
-    
-    print(f"Model Accuracy: {accuracy * 100:.2f}%") 
-    
-    cm = confusion_matrix(y_test, y_pred)
-    
-    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
-    
-    plt.title('Confusion Matrix')
-    
-    plt.ylabel('Actual')
-    
-    plt.xlabel('Predicted')
-    
-    plt.show()
+plt.show()  
     
 # Project Dependencies
 To Add a requirements.txt file to list all the dependencies.
 Example of requirements.txt:
-
-ini
-
-Copy
 
 pandas==1.5.3
 
@@ -225,3 +217,5 @@ seaborn==0.11.2
 https://github.com/kalyani12345121/Titanic-Survival-Prediction/blob/main/Screenshot%20(57).png
 
 https://github.com/kalyani12345121/Titanic-Survival-Prediction/blob/main/Screenshot%20(58).png
+
+https://github.com/kalyani12345121/Titanic-Survival-Prediction/blob/main/Screenshot%20(59).png
